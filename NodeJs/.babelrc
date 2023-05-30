@@ -1,0 +1,6 @@
+// cấu hình cho barbel
+{
+    "presets" : [
+        "@babel/preset-env"
+    ]
+}
