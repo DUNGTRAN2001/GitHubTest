@@ -2,33 +2,18 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     // addColumn nếu muốn thêm cột
-    await queryInterface.createTable("bookings", {
+    await queryInterface.createTable("medications", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      statusId: {
+      name: {
         type: Sequelize.STRING,
       },
-      doctorId: {
-        type: Sequelize.INTEGER,
-      },
-      scheduleId: {
-        type: Sequelize.INTEGER,
-      },
-      patientId: {
-        type: Sequelize.INTEGER,
-      },
-      date: {
-        type: Sequelize.STRING,
-      },
-      timeType: {
-        type: Sequelize.STRING,
-      },
-      token: {
-        type: Sequelize.STRING,
+      description: {
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +26,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("bookings");
+    await queryInterface.dropTable("medications");
   },
 };

@@ -104,6 +104,30 @@ let getProfileDotorById = async (req, res) => {
     });
   }
 };
+let getListPatientForDoctor = async(req,res)=>{
+  try {
+    let response = await doctorService.getListPatientForDoctor(req.query.doctorId,req.query.date);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log("lỗi", error);
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from server",
+    });
+  }
+}
+let sendRedemy = async(req,res)=>{
+  try {
+    let response = await doctorService.sendRedemy(req.body);
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log("lỗi", error);
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from server",
+    });
+  }
+}
 module.exports = {
   getTopDoctorHome: getTopDoctorHome,
   getAllDoctors: getAllDoctors,
@@ -113,4 +137,6 @@ module.exports = {
   getScheduleByDate: getScheduleByDate,
   getExtraInforDotorById : getExtraInforDotorById,
   getProfileDotorById : getProfileDotorById,
+  getListPatientForDoctor : getListPatientForDoctor,
+  sendRedemy : sendRedemy
 };
