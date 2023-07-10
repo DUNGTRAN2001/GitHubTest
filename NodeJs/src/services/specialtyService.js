@@ -28,10 +28,13 @@ require('dotenv').config();
       }
     });
   };
-  let getAllSpecialty = () => {
+  let getAllSpecialty = (limit) => {
     return new Promise(async (resolve, reject) => {
       try {
-        let response = await db.Specialty.findAll();
+        let response = await db.Specialty.findAll({
+          limit: limit,
+          order: [["createdAt", "DESC"]],
+        });
         if(response?.length > 0){
           response?.map(item=>{
             item.image = new Buffer(item.image, "base64").toString(
@@ -85,7 +88,7 @@ require('dotenv').config();
               }else data = {}
               resolve({
                 errCode : 0,
-                data
+                data : data
               })
         }
       } catch (error) {

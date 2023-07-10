@@ -30,10 +30,15 @@ let createClinic = (data) => {
     });
   };
   
-  let getAllClinic = () => {
+  let getAllClinic = (limit) => {
     return new Promise(async (resolve, reject) => {
       try {
-        let response = await db.Clinic.findAll();
+        let response = await db.Clinic.findAll(
+          {
+            limit: limit,
+            order: [["createdAt", "DESC"]],
+          }
+        );
         if(response?.length > 0){
           response?.map(item=>{
             item.image = new Buffer(item.image, "base64").toString(

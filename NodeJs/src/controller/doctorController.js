@@ -1,9 +1,8 @@
 import doctorService from "../services/doctorService";
 let getTopDoctorHome = async (req, res) => {
   let limit = req.query.limit;
-  //   let role = req.query.roleId;
   if (!limit) {
-    limit = 10;
+    limit = 100;
   }
   try {
     let response = await doctorService.getTopDoctorHome(+limit);

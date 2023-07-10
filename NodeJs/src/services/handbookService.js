@@ -29,10 +29,15 @@ let createHandBook = (data) => {
     });
   };
   
-  let getAllHandBook = () => {
+  let getAllHandBook = (limit) => {
     return new Promise(async (resolve, reject) => {
       try {
-        let response = await db.HandBook.findAll();
+        let response = await db.HandBook.findAll(
+          {
+            limit: limit,
+            order: [["createdAt", "DESC"]],
+          }
+        );
         if(response?.length > 0){
           response?.map(item=>{
             item.image = new Buffer(item.image, "base64").toString(
@@ -63,16 +68,8 @@ let createHandBook = (data) => {
               where : {
                 id : id
               },
-              attributes : ['address','name','descriptionHTML','descriptionMarkdown']
+              attributes : ['name','descriptionHTML','descriptionMarkdown']
             })
-              if(data){
-                  let doctorHandBook= [];
-                  doctorHandBook = await db.Doctor_Infor.findAll({
-                  where : {HandBookId : id},
-                  attributes : ['doctorId']
-                  })
-                  data.doctorHandBook = doctorHandBook;
-              }else data = {}
               resolve({
                 errCode : 0,
                 data

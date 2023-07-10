@@ -14,8 +14,12 @@ let createSpecialty = async(req,res)=>{
       }
 }
 let getAllSpecialty = async (req, res) => {
+  let limit = req.query.limit;
+  if (!limit) {
+    limit = 100;
+  }
   try {
-    let response = await specialtyService.getAllSpecialty();
+    let response = await specialtyService.getAllSpecialty(+limit);
     return res.status(200).json(response);
   } catch (error) {
     console.log("lỗi", error);

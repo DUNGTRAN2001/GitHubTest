@@ -1,7 +1,7 @@
 
 require('dotenv').config()
 import nodemailer from "nodemailer"
-
+const { Buffer } = require('buffer');
 let sendSimpleEmail = async (dataSend)=>{
     // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
@@ -85,10 +85,10 @@ let sendAttachment =  (dataSend)=>{
       html: getBodyHTMLEmailRemedy(dataSend),
       attachments : [
         {   // encoded string as an attachment
-          filename: `remedy-${dataSend.patientId}-${new Date().getTime()}.png`,
-          content: dataSend.imageBase64.split("base64,")[1],
-          encoding: 'base64'
-      },
+          filename: `remedy-${dataSend.patientId}-${new Date().getTime()}.pdf`,
+          content: Buffer.from(dataSend.imageBase64.split("base64,")[1], 'base64'),
+          contentType: 'application/pdf'
+        },
       ]
     });
     resolve()

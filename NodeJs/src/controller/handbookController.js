@@ -14,8 +14,13 @@ let createHandBook = async(req,res)=>{
       }
 }
 let getAllHandBook = async (req, res) => {
+  let limit = req.query.limit;
+  if (!limit) {
+    limit = 100;
+  }
   try {
-    let response = await handbookService.getAllHandBook();
+    
+    let response = await handbookService.getAllHandBook(+limit);
     return res.status(200).json(response);
   } catch (error) {
     console.log("lỗi", error);
